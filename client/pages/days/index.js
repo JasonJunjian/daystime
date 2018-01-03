@@ -205,7 +205,7 @@ Page({
     if (that.data.topEvent == null) {
       that.setData({
         topEvent: temp[0],
-        events: temp.slice(1, temp.length - 1)
+        events: temp.slice(1, temp.length)
       })
       return;
     }

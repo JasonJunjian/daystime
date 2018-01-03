@@ -89,16 +89,8 @@ Page({
   onShow: function () {
     this.login();
     //加载类别 getclassify
-    var that = this;
-    var classifys = wx.getStorageSync("classifys");
-    if (classifys) {
-      var hours = (Date.now() - classifys.time) / 1000 / 60 / 60;
-      if (hours > 6) {//6小时过期时间 
-        this.getClassifys();
-      }
-    } else {
-      this.getClassifys();
-    }
+    this.getClassifys();
+    this.getCalendar();
   },
 
   /**
@@ -221,6 +213,14 @@ Page({
   },
   getClassifys: function () {
     var that = this;
+    var classifys = wx.getStorageSync("classifys");
+    if (classifys) {
+      var hours = (Date.now() - classifys.time) / 1000 / 60 / 60;
+      if (hours < 6) {//6小时过期时间 
+        return;
+      }
+    }
+    
     qcloud.request({
       url: `${config.service.host}/weapp/getclassify`,
       login: false,
@@ -231,6 +231,22 @@ Page({
         })
       },
       fail(error) { 
+        console.log('request fail', error);
+      }
+    })
+  },
+  getCalendar:function(){
+    var that = this;
+    qcloud.request({
+      url: `${config.service.host}/weapp/getcalendar`,
+      login: false,
+      success(result) {
+        wx.setStorage({
+          key: 'calendar',
+          data: { time: Date.now(), data: result.data.data }
+        })
+      },
+      fail(error) {
         console.log('request fail', error);
       }
     })

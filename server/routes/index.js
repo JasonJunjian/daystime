@@ -34,6 +34,9 @@ router.post('/message', controllers.message.post)
 
 router.get('/demo', validationMiddleware,controllers.demo)
 router.get('/addday', validationMiddleware,controllers.addday)
-router.get('/getclassify', validationMiddleware, controllers.getclassify)
+router.get('/getclassify', controllers.getclassify)
 router.get('/delday', validationMiddleware, controllers.delday)
+router.get('/getcalendar', controllers.getcalendar)
+
+
 module.exports = router

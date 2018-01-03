@@ -1,0 +1,21 @@
+/* pages/addDay/addDay.wxss */
+.page{
+  background-color:#1C1C25;
+  height:100%;
+  position:fixed;
+  width: 100%;
+}
+.weui-cells {
+  background-color:#191B29;
+  color:#fff;
+  border-bottom:1rpx solid #30323D; 
+}
+.weui-cell{
+  border-top:1rpx solid #30323D; 
+}
+.weui-cell:before {
+  content:initial;
+}
+.weui-cells:after,.weui-cells:before {
+ content:initial;
+}

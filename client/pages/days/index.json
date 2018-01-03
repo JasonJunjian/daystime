@@ -1,0 +1,8 @@
+{
+  "navigationBarBackgroundColor": "#3472a5",
+  "navigationBarTextStyle": "white",
+  "navigationBarTitleText": "倒数拾光",
+  "backgroundColor": "#3472a5",
+  "backgroundTextStyle": "light",
+  "enablePullDownRefresh": false
+}

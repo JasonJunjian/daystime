@@ -1,0 +1,113 @@
+/* pages/days/index.wxss */
+
+.bgimage {
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  z-index: 1;
+  /* -webkit-filter: blur(5px);
+  filter: blur(5px); */
+}
+
+.scrollview {
+  height: 95%;
+  width: 100%;
+  z-index: 2;
+  position: fixed;
+  top: 0;
+}
+
+.page__title {
+  color: #fff;
+  font-size: 60rpx;
+  font-weight: 200;
+}
+
+.page__days {
+  color: #fff;
+  font-size: 80rpx;
+  font-weight: 800;
+}
+
+.page__desc {
+  color: #fff;
+  font-size: 35rpx;
+  font-weight: 100;
+}
+
+.day_item {
+  border-top: 0rpx;
+  padding-top: 20rpx;
+}
+
+.day_left {
+  display: inline-block;
+  text-align: left;
+  color: #fff;
+  padding-left: 40px;
+  box-sizing: border-box;
+  height: 100%;
+}
+
+.day_right {
+  display: inline-block;
+  color: #fff;
+  box-sizing: border-box;
+  height: 100%;
+  float: right;
+  padding-right: 40px;
+  text-align: right;
+}
+
+.day_days {
+  color: #fff;
+  font-size: 60rpx;
+  line-height: 60rpx;
+}
+
+.day_label {
+  color: #fff;
+  font-size: 28rpx;
+  line-height: 33rpx;
+  font-weight: 100;
+}
+
+.day_event {
+  color: #fff;
+  font-size: 41rpx;
+  line-height: 60rpx;
+}
+
+.day_date {
+  color: #fff;
+  font-size: 28rpx;
+  line-height: 33rpx;
+  font-weight: 100;
+}
+
+.addday {
+  position: fixed;
+  top: 15rpx;
+  z-index: 5;
+  right: 12px;
+  display: inline-block;
+  width: 146rpx;
+  color: #28284a;
+  height: 66rpx;
+  font-size: 35rpx;
+  line-height: 66rpx;
+  font-weight: bold;
+  text-align: center;
+  background-color: rgba(255, 255, 255, 0.6);
+  border-radius: 10rpx;
+  letter-spacing: 5rpx;
+  padding: 2rpx 5rpx;
+}
+
+.page_days_label {
+  display: inline-block;
+  color: #fff;
+  font-size: 28rpx;
+  line-height: 33rpx;
+  font-weight: 100;
+}

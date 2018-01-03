@@ -30,7 +30,6 @@ module.exports = async ctx => {
   //       }
   //       obj.months.push(obj_month); 
   //     }
-  //   }
-  data.push(obj);
+  //   } 
   ctx.state.data = data;
 }

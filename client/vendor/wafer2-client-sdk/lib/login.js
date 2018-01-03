@@ -143,6 +143,7 @@ var login = function login(options) {
                 doLogin();
             },
         });
+        console.log('登录态有效');
     } else {
         doLogin();
     }

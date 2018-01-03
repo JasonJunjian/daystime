@@ -1,0 +1,22 @@
+<!--pages/days/index.wxml-->
+<view class="page">
+  <image src='http://qcloudtest-1255501801.cn-south.myqcloud.com/1514950916080-rk2ZbCY7f.jpg' mode='scaleToFill' class='bgimage'></image>
+  <view class='page_bottom'>
+    <view class="addday" bindtap='editDay'></view>
+  </view>
+  <swiper class='swiper' indicator-dots='true' indicator-color="#fff" indicator-active-color="#FF0000" autoplay="false" duration="500" interval="1000000000" current="{{eventIndex}}" bindchange='eventchange'>
+    <block wx:for="{{events}}">
+      <swiper-item>
+        <view>
+          <view class="page__hd" data-id='{{item.id}}'>
+            <view class="page__title">{{item.event}} {{item.eventTip}}</view>
+            <view class="page__days">{{item.days}}
+              <view class='page_days_label'>{{item.label}}</view>
+            </view>
+            <view class="page__desc">{{item.eventdate}}</view>
+          </view>
+        </view>
+      </swiper-item>
+    </block>
+  </swiper>
+</view>

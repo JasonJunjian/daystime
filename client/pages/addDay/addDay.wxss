@@ -19,3 +19,6 @@
 .weui-cells:after,.weui-cells:before {
  content:initial;
 }
+.weui-select{
+  padding-left:0px; 
+}

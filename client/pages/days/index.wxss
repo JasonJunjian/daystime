@@ -10,29 +10,34 @@
 }
 
 .scrollview {
-  height: 95%;
+  height: 88%;
   width: 100%;
   z-index: 2;
   position: fixed;
   top: 0;
 }
 
+.page__hd {
+  padding: 100rpx 40rpx;
+}
+
 .page__title {
   color: #fff;
-  font-size: 60rpx;
-  font-weight: 200;
+  font-size: 40rpx;
+  font-weight: 0;
 }
 
 .page__days {
   color: #fff;
-  font-size: 80rpx;
-  font-weight: 800;
+  font-size: 160rpx;
+  font-weight: 700;
+  line-height: 160rpx;
 }
 
 .page__desc {
   color: #fff;
-  font-size: 35rpx;
-  font-weight: 100;
+  font-size: 26rpx;
+  line-height: 26rpx;
 }
 
 .day_item {
@@ -44,7 +49,7 @@
   display: inline-block;
   text-align: left;
   color: #fff;
-  padding-left: 40px;
+  padding-left: 40rpx;
   box-sizing: border-box;
   height: 100%;
 }
@@ -55,7 +60,7 @@
   box-sizing: border-box;
   height: 100%;
   float: right;
-  padding-right: 40px;
+  padding-right: 40rpx;
   text-align: right;
 }
 
@@ -86,22 +91,24 @@
 }
 
 .addday {
-  position: fixed;
-  top: 15rpx;
-  z-index: 5;
-  right: 12px;
-  display: inline-block;
-  width: 146rpx;
-  color: #28284a;
-  height: 66rpx;
-  font-size: 35rpx;
-  line-height: 66rpx;
-  font-weight: bold;
+  width: 100rpx;
+  color: #FFF;
+  height: 100rpx;
+  font-size: 88rpx;
+  font-weight: bold;  
+  line-height: 89rpx; 
+  border-radius: 100rpx;
+  display: inline-block; 
+  border:1px solid #fff;
   text-align: center;
-  background-color: rgba(255, 255, 255, 0.6);
-  border-radius: 10rpx;
-  letter-spacing: 5rpx;
-  padding: 2rpx 5rpx;
+}
+
+.page_bottom {
+  position: fixed;
+  bottom:68rpx;
+  z-index: 5;
+  text-align: center;
+  width: 100%;
 }
 
 .page_days_label {
@@ -110,4 +117,6 @@
   font-size: 28rpx;
   line-height: 33rpx;
   font-weight: 100;
+  background-color: red;
+  padding: 2rpx;
 }

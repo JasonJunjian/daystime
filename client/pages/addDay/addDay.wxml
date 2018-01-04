@@ -9,7 +9,17 @@
         <input class="weui-input" id='eventName' maxlength='12' value='{{name}}' placeholder="请输入时光名称" bindinput='bindInput' />
       </view>
     </view>
-    <view class="weui-cell weui-cell_input">
+    <view class="weui-cell weui-cell_select">
+      <view class="weui-cell__hd weui-cell__hd_in-select-after">
+        <view class="weui-label">历法</view>
+      </view>
+      <view class="weui-cell__bd">
+        <picker bindchange="bindCalendarTypeChange" value='{{calendarType}}' range="{{calendarTypes}}">
+          <view class="weui-select">{{calendarTypes[calendarType]}}</view>
+        </picker>
+      </view>
+    </view>
+    <view class="weui-cell weui-cell_input" wx:if="{{calendarType ==0}}">
       <view class="weui-cell__hd">
         <view class="weui-label">日期</view>
       </view>
@@ -19,6 +29,23 @@
         </picker>
       </view>
     </view>
+    <view class="weui-cell weui-cell_input" wx:if="{{calendarType ==1}}">
+      <view class="weui-cell__hd">
+        <view class="weui-label">日期</view>
+      </view>
+      <view class="weui-cell__bd">
+        <!-- <picker mode="date" value="{{date}}" start="1990-01-01" end="2050-12-31" bindchange="bindDateChange">
+          <view class="weui-input">{{date}}</view>
+        </picker> -->
+        <picker mode="multiSelector" value="{{calendarIndex}}" bindcolumnchange="bindPickerChange" range="{{calendar}}" range-key="{{'name'}}">
+          <view class="weui-input">
+            {{lDate}}
+          </view>
+        </picker>
+      </view>
+    </view>
+
+
     <view class="weui-cell weui-cell_select">
       <view class="weui-cell__hd weui-cell__hd_in-select-after">
         <view class="weui-label">分类</view>
@@ -26,6 +53,16 @@
       <view class="weui-cell__bd">
         <picker bindchange="bindClassifyChange" value='{{classifyIndex}}' range-key="{{'name'}}" range="{{classifys}}">
           <view class="weui-select">{{classifys[classifyIndex].name}}</view>
+        </picker>
+      </view>
+    </view>
+    <view class="weui-cell weui-cell_select">
+      <view class="weui-cell__hd weui-cell__hd_in-select-after">
+        <view class="weui-label">重复</view>
+      </view>
+      <view class="weui-cell__bd">
+        <picker bindchange="bindRepeatTypeChange" value='{{repeatType}}' range="{{repeatTypes}}">
+          <view class="weui-select">{{repeatTypes[repeatType]}}</view>
         </picker>
       </view>
     </view>
@@ -38,6 +75,6 @@
   </view>
   <view class="weui-btn-area">
     <button class="weui-btn" type="primary" bindtap="submit">确定</button>
-    <button wx:if="{{id!=0}}" class="weui-btn" type="warn"  bindtap="deleteTap">删除</button>
+    <button wx:if="{{id!=0}}" class="weui-btn" type="warn" bindtap="deleteTap">删除</button>
   </view>
 </view>

@@ -1,14 +1,20 @@
 /* pages/days/index.wxss */
 
+.bgimage_bottom {
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  z-index: 0;
+}
+
 .bgimage {
   position: fixed;
   height: 100%;
   width: 100%;
   z-index: 1;
-  /* -webkit-filter: blur(5px);
-  filter: blur(5px); */
+  -webkit-filter: blur(1px);
+  filter: blur(1px);
 }
-
 .swiper {
   height: 100%;
   width: 100%;

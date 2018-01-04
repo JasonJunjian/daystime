@@ -1,5 +1,6 @@
 <!--pages/days/index.wxml-->
 <view class="page">
+  <image src='http://qcloudtest-1255501801.cn-south.myqcloud.com/1514950916080-rk2ZbCY7f.jpg' mode='scaleToFill' class='bgimage_bottom'></image>
   <image src='http://qcloudtest-1255501801.cn-south.myqcloud.com/1514950916080-rk2ZbCY7f.jpg' mode='scaleToFill' class='bgimage'></image>
   <view class='page_bottom'>
     <view class="addday" bindtap='editDay'></view>

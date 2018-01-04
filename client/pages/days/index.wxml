@@ -13,14 +13,14 @@
       <view class="page__days">{{topEvent.days}}
         <view class='page_days_label'>{{topEvent.label}}</view>
       </view>
-      <view class="page__desc">{{topEvent.eventdate}}</view>
+      <view class="page__desc">{{topEvent.showDate}}</view>
     </view>
     <block wx:for="{{events}}">
       <view class="day_item" data-id='{{item.id}}' bindtap='editDay'>
         <view class="day_left">
           <view class='day_event'>
             <text style='font-weight:bold;'>{{item.event}}</text> {{item.eventTip}}</view>
-          <view class='day_date'>{{item.eventdate}} {{item.week}}</view>
+          <view class='day_date'>{{item.showDate}} {{item.week}}</view>
         </view>
         <view class="day_right">
           <view class='day_days'>{{item.days}}</view>

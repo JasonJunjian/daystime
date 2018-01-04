@@ -52,22 +52,27 @@ Page({
       if (days) {
         for (var i = 0; i < days.data.length; i++) {
           if (days.data[i].id == this.data.id) {
+            //农历
             if (days.data[i].calendartype == 1){
-              var offset = 0;//闰月偏移量
-              if (days.data[i].detailDate.isLeap){
-                offset = 1; 
-              }
-              
+              var edateArray = days.data[i].eventdate.split('-');
+              const nl = calendar.solarLunar.solar2lunar(edateArray[0], edateArray[1], edateArray[2]);
+              var monthList = calendar.getMonthList(nl.lYear);
+              var dayList = calendar.getDayList(nl.lYear, nl.lMonth, nl.isLeap); 
               var index = [
-                calendar.getYearListIndex(this.data.calendar[0], days.data[i].detailDate.lYear),
-                calendar.getMonthListIndex(this.data.calendar[1], days.data[i].detailDate.lMonth)+offset,
-                calendar.getDayListIndex(this.data.calendar[2], days.data[i].detailDate.lDay)
+                calendar.getYearListIndex(this.data.calendar[0], nl.lYear),
+                calendar.getMonthListIndex(monthList, nl.lMonth, days.data[i].detailDate.isLeap),
+                calendar.getDayListIndex(dayList, nl.lDay)
               ];
+              var monthList = calendar.getMonthList(nl.lYear); 
+              var dayList = calendar.getDayList(nl.lYear, nl.lMonth,nl.isLeap); 
               this.setData({ 
+                ['calendar[1]']: monthList,
+                ['calendar[2]']: dayList,
                 calendarIndex: index,
-                lDate: days.data[i].eventdate
+                lDate: this.data.calendar[0][index[0]].name + monthList[index[1]].name + dayList[index[2]].name
               });
-            } else{
+            } 
+            else{
               this.setData({
                 date: days.data[i].eventdate.replace(/\./g, '-')
               });
@@ -96,7 +101,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    console.log(calendar.getMonthList(2006))
   },
 
   /**
@@ -162,7 +167,10 @@ Page({
       var year = that.data.calendar[0][that.data.calendarIndex[0]].year;
       var month = that.data.calendar[1][that.data.calendarIndex[1]];
       var day = that.data.calendar[2][that.data.calendarIndex[2]].day;
+      console.log(year,month);
+      console.log(calendar.solarLunar.leapMonth(year));
       var date = calendar.solarLunar.lunar2solar(year,month.month,day,month.isLeap);
+      console.log(date);
       that.data.date = date.cYear+'-'+date.cMonth+'-'+date.cDay;
       console.log(that.data.date);
     }
@@ -254,8 +262,8 @@ Page({
     //event.detail = { column: column, value: value }
     console.log(e.detail);
     switch (e.detail.column) {
-      case 0:
-        var monthList = calendar.getMonthList(this.data.calendar[0][e.detail.value].year);
+      case 0: 
+        var monthList = calendar.getMonthList(this.data.calendar[0][e.detail.value].year); 
         this.data.calendarIndex[0] = e.detail.value;
         if (this.data.calendarIndex[1] > (monthList.length - 1)) {
           this.data.calendarIndex[1] = 0;
@@ -263,7 +271,7 @@ Page({
         this.setData({ ['calendar[1]']: monthList, calendarIndex: this.data.calendarIndex });
         break;
       case 1:
-        var dayList = calendar.getDayList(this.data.calendar[0][this.data.calendarIndex[0]].year, this.data.calendar[1][e.detail.value].month);
+        var dayList = calendar.getDayList(this.data.calendar[0][this.data.calendarIndex[0]].year, this.data.calendar[1][e.detail.value].month, this.data.calendar[1][e.detail.value].isLeap);
         this.data.calendarIndex[1] = e.detail.value;
         if (this.data.calendarIndex[2] > (dayList.length - 1)) {
           this.data.calendarIndex[2] = 0;

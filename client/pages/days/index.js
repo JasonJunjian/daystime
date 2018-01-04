@@ -90,7 +90,6 @@ Page({
     this.login();
     //加载类别 getclassify
     this.getClassifys();
-    this.getCalendar();
   },
 
   /**
@@ -231,22 +230,6 @@ Page({
         })
       },
       fail(error) { 
-        console.log('request fail', error);
-      }
-    })
-  },
-  getCalendar:function(){
-    var that = this;
-    qcloud.request({
-      url: `${config.service.host}/weapp/getcalendar`,
-      login: false,
-      success(result) {
-        wx.setStorage({
-          key: 'calendar',
-          data: { time: Date.now(), data: result.data.data }
-        })
-      },
-      fail(error) {
         console.log('request fail', error);
       }
     })

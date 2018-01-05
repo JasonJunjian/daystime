@@ -1,10 +1,10 @@
 const moment = require('moment')
 const solarLunar = require("solarlunar");
-const dataconvert = (data) => { 
+const dataconvert = (data) => {
   var edate = moment(data.eventdate);
-  data.eventdate = edate.format('YYYY-MM-DD');
   var nowdate = moment(Date.now());
-  
+  var arr = edate.format('YYYY.MM.DD').split('.');
+  const nl = solarLunar.solar2lunar(arr[0], arr[1], arr[2]);
   //处理重复
   if (data.repeattype > 0) {
     switch (data.repeattype) {
@@ -21,27 +21,26 @@ const dataconvert = (data) => {
         break;
       case 2://每月
 
-        break;
+        break
       case 3://每年
-        if (data.calendartype == 0) {//公历
-          edate = moment(nowdate.format('YYYY') + edate.format('-MM-DD'));
-        } else {
-          var edateArray = edate.format('YYYY-MM-DD').split('-');
-          const oldNl = solarLunar.solar2lunar(edateArray[0], edateArray[1], edateArray[2]);
-          var currentDate = new Date();
-          const currentNl = solarLunar.solar2lunar(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate());//当前时间阴历
-          if (currentNl.lYear != oldNl.lYear) { 
-            var nowNL = solarLunar.lunar2solar(currentNl.lYear, oldNl.lMonth, oldNl.lDay,oldNl.isLeap);
+        if (nowdate.format('YYYY') != edate.format('YYYY')) {
+          if (data.calendartype == 0) {//公历
+            edate = moment(nowdate.format('YYYY') + edate.format('-MM-DD'));
+          } else {
+            var currentDate = new Date();
+            const currentNl = solarLunar.solar2lunar(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDay());//当前时间阴历
+            var nowNL = solarLunar.lunar2solar(currentNl.lYear, nl.lMonth, nl.lDay);
+            console.log(nowNL);
             if (nowNL != -1) {
               edate = moment(nowNL.cYear + '-' + nowNL.cMonth + '-' + nowNL.cDay);
             }
-          } 
+          }
         }
-        break;
+        break
     }
   }
 
-  data.showDate = edate.format('YYYY.MM.DD');
+  data.eventdate = edate.format('YYYY.MM.DD');
   data.createtime = moment(data.createtime).format('YYYY.MM.DD');
   var days = edate.diff(nowdate, 'days', true);
   days = parseInt(days) == days ? parseInt(days) : (days > 0 ? parseInt(days) + 1 : parseInt(days));
@@ -50,15 +49,10 @@ const dataconvert = (data) => {
   data.label = data.days > 1 ? 'DAYS' : 'DAY';
 
   //处理农历 
-  var edate_Date = edate.format('YYYY-MM-DD').split('-');
-  const nl = solarLunar.solar2lunar(edate_Date[0], edate_Date[1], edate_Date[2]);
   if (data.calendartype == 1) {
-    data.showDate = nl.gzYear + '(' + nl.lYear + ')' + nl.monthCn + nl.dayCn;
+    data.eventdate = nl.gzYear + '(' + nl.lYear + ')' + nl.monthCn + nl.dayCn;
   }
-  //
-  var edateArray = edate.format('YYYY-MM-DD').split('-');
-  const oldNl = solarLunar.solar2lunar(edateArray[0], edateArray[1], edateArray[2]);
-  data.detailDate = { year: edateArray[0], month: edateArray[1], day: edateArray[2], lYear: oldNl.lYear, lMonth: oldNl.lMonth, lDay: oldNl.lDay, isLeap: oldNl.isLeap }
+  data.detailDate = { year: arr[0], month: arr[1], day: arr[2], lYear: nl.lYear, lMonth: nl.lMonth, lDay: nl.lDay, isLeap: nl.isLeap }
   data.week = nl.ncWeek == '星期零' ? '星期日':nl.ncWeek ;
 
   return data;

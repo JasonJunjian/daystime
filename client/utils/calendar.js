@@ -30,9 +30,8 @@ const getMonthList = (year) => {
 }
 const getMonthListIndex = (list, month, isLeap) => {
   var index = 0;
-  for (var i=0; i < list.length; i++) {
-    if (list[i].month == month) {
-      index = i;
+  for (; index <= list.length; index++) {
+    if (list[index].month == month) {
       return isLeap ? index + 1 : index;
     }
   }

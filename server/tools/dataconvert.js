@@ -20,8 +20,21 @@ const dataconvert = (data) => {
         }
         break;
       case 2://每月
-
-        break
+        if (data.calendartype == 0) {//公历
+          edate = moment(nowdate.format('YYYY-MM') + edate.format('-DD'));
+        } else {
+          var edateArray = edate.format('YYYY-MM-DD').split('-');
+          const oldNl = solarLunar.solar2lunar(edateArray[0], edateArray[1], edateArray[2]);
+          var currentDate = new Date();
+          const currentNl = solarLunar.solar2lunar(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate());//当前时间阴历
+          if (currentNl.lYear != oldNl.lYear) {
+            var nowNL = solarLunar.lunar2solar(currentNl.lYear, currentNl.lMonth, oldNl.lDay, oldNl.isLeap);
+            if (nowNL != -1) {
+              edate = moment(nowNL.cYear + '-' + nowNL.cMonth + '-' + nowNL.cDay);
+            }
+          }
+        }
+        break;
       case 3://每年
         if (data.calendartype == 0) {//公历
           edate = moment(nowdate.format('YYYY') + edate.format('-MM-DD'));

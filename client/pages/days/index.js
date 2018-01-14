@@ -1,5 +1,5 @@
 var qcloud = require('../../vendor/wafer2-client-sdk/index')
-var config = require('../../config')
+var config = require('../../config') 
 var util = require('../../utils/util.js')
 var app = getApp();
 // pages/days/index.js
@@ -268,20 +268,46 @@ Page({
         wx.uploadFile({
           url: config.service.uploadUrl,
           filePath: filePath,
-          name: 'file',
-
-          success: function (res) {
-            util.showSuccess('上传图片成功')
+          name: 'file', 
+          success: function (res) { 
             console.log(res)
-            res = JSON.parse(res.data)
-            console.log(res)
-            app.addUserStyles(res.data.imgUrl); 
-            that.data.styles.splice(0, 0,{ url: res.data.imgUrl, filter: 0 });
-            that.setData({ styles: that.data.styles });
-          },
-
+            if (res.statusCode == 200){
+              util.showSuccess('上传图片成功')
+              res = JSON.parse(res.data)
+              if(res.code == 0){
+                console.log(res)
+                app.addUserStyles(res.data.imgUrl);
+                that.data.styles.splice(0, 0, { url: res.data.imgUrl, filter: 0 });
+                that.setData({ styles: that.data.styles });
+                var url = res.data.imgUrl
+                qcloud.request({
+                  url: `${config.service.host}/weapp/addstyle`,
+                  login: true,
+                  data: {
+                    url: url
+                  },
+                  success(result) {
+                  },
+                  fail(error) {
+                  }
+                })
+              } 
+            }else{
+              wx.hideLoading() 
+              wx.showModal({
+                title: '上传失败',
+                content: '图片过大，请选择大小在1M以内的图片',
+                showCancel:false
+              }) 
+            } 
+          }, 
           fail: function (e) {
-            util.showModel('上传图片失败')
+            wx.hideLoading()
+            wx.showModal({
+              title: '上传失败',
+              content: '图片过大，请选择大小在1M以内的图片',
+              showCancel: false
+            }) 
           }
         })
 

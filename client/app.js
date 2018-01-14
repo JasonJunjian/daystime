@@ -12,6 +12,11 @@ App({
         key: 'app_version',
         data: config.appVersion,
       })
+      wx.showModal({
+        title: '升级提示',
+        content: '为了大家的个性化需要，向右滑动可以设置背景图片及模糊程度了，快快体验吧！',
+        showCancel:false
+      })
     }
     console.log(app_version);
     this.getStyles(function(){});

@@ -14,7 +14,7 @@
             <view class="page__days">{{item.days}}
               <view class='page_days_label'>{{item.label}}</view>
             </view>
-            <view class="page__desc">{{item.showDate}}</view>
+            <view class="page__desc">{{item.showDate}} {{item.week}}</view>
           </view>
         </view>
       </swiper-item>

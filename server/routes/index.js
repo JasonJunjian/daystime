@@ -37,6 +37,6 @@ router.get('/addday', validationMiddleware,controllers.addday)
 router.get('/getclassify',controllers.getclassify)
 router.get('/delday', validationMiddleware, controllers.delday)
 router.get('/getcalendar', controllers.getcalendar)
-router.get('/getstyle', controllers.getstyle)
-
+router.get('/getstyle', controllers.getstyle) 
+router.get('/addstyle', validationMiddleware, controllers.addstyle)
 module.exports = router

@@ -1,6 +1,5 @@
 {
   "pages": [ 
-    "pages/index/index",
     "pages/days/index",
     "pages/addDay/addDay",
     "pages/dayView/dayView"

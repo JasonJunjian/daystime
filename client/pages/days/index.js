@@ -1,6 +1,7 @@
 var qcloud = require('../../vendor/wafer2-client-sdk/index')
 var config = require('../../config')
 var util = require('../../utils/util.js')
+var app = getApp();
 // pages/days/index.js
 Page({
 
@@ -8,6 +9,9 @@ Page({
    * 页面的初始数据
    */
   data: {
+    backgroundUrl: '',
+    filter:0,
+    styles: [],
     topEvent: null,
     events: [],
     logged: false,
@@ -20,7 +24,7 @@ Page({
     var that = this
     // 调用登录接口
     qcloud.login({
-      success(result) { 
+      success(result) {
         if (result) {
           //util.showSuccess('登录成功')
           that.setData({
@@ -80,7 +84,16 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-
+    var that = this;
+    app.getStyles(function (res) {
+      var userStyles = app.getUserStyles();
+      res.forEach(function(item){
+        userStyles.push({ url: item.imageurl, filter:item.opacity})
+      })
+      that.setData({ styles: userStyles });
+    });
+    var filter = app.getFilter();
+    that.setData({ backgroundUrl: app.getBgUrl() ,filter:filter});
   },
 
   /**
@@ -126,16 +139,16 @@ Page({
   onShareAppMessage: function () {
 
   },
-  getDayEvent: function () { 
+  getDayEvent: function () {
     var that = this;
     var days = wx.getStorageSync("days");
-    if (days) {
+    if (days != '') {
       var hours = (Date.now() - days.time) / 1000 / 60 / 60;
       if (hours <= 1) {//一小时过期时间
         that.setDays(days.data);
         return;
       }
-    } 
+    }
     qcloud.request({
       url: `${config.service.host}/weapp/demo`,
       login: true,
@@ -213,13 +226,13 @@ Page({
   getClassifys: function () {
     var that = this;
     var classifys = wx.getStorageSync("classifys");
-    if (classifys) {
+    if (classifys != '') {
       var hours = (Date.now() - classifys.time) / 1000 / 60 / 60;
-      if (hours < 6) {//6小时过期时间 
+      if (hours < 6) {//6小时过期时间  
         return;
       }
     }
-    
+
     qcloud.request({
       url: `${config.service.host}/weapp/getclassify`,
       login: false,
@@ -229,9 +242,58 @@ Page({
           data: { time: Date.now(), data: result.data.data }
         })
       },
-      fail(error) { 
+      fail(error) {
         console.log('request fail', error);
       }
     })
+  },
+  changeBg:function(e){
+    var url = e.currentTarget.dataset.url;
+    this.setData({ backgroundUrl: url});
+    app.setBgUrl(url);
+  },
+  // 上传图片接口
+  doUpload: function () {
+    var that = this 
+    // 选择图片
+    wx.chooseImage({
+      count: 1,
+      sizeType: ['compressed'],
+      sourceType: ['album', 'camera'],
+      success: function (res) {
+        util.showBusy('正在上传')
+        var filePath = res.tempFilePaths[0]
+  
+        // 上传图片
+        wx.uploadFile({
+          url: config.service.uploadUrl,
+          filePath: filePath,
+          name: 'file',
+
+          success: function (res) {
+            util.showSuccess('上传图片成功')
+            console.log(res)
+            res = JSON.parse(res.data)
+            console.log(res)
+            app.addUserStyles(res.data.imgUrl); 
+            that.data.styles.splice(0, 0,{ url: res.data.imgUrl, filter: 0 });
+            that.setData({ styles: that.data.styles });
+          },
+
+          fail: function (e) {
+            util.showModel('上传图片失败')
+          }
+        })
+
+      },
+      fail: function (e) {
+        console.error(e)
+      }
+    })
+  },
+  filterChange:function(e){
+    var filter = ( e.detail.value/10);
+    app.setFilter(filter);
+    this.setData({filter:filter})
   }
 })

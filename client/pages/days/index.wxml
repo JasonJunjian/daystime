@@ -1,33 +1,81 @@
 <!--pages/days/index.wxml-->
 <view class="page">
-  <image src='http://qcloudtest-1255501801.cn-south.myqcloud.com/1514950916080-rk2ZbCY7f.jpg' mode='scaleToFill' class='bgimage_bottom'></image>
-  <image src='http://qcloudtest-1255501801.cn-south.myqcloud.com/1514950916080-rk2ZbCY7f.jpg' mode='scaleToFill' class='bgimage'></image>
-  <view class='page_bottom'>
-    <view class="addday" bindtap='addday'>＋</view>
-  </view>
+  <image src='{{backgroundUrl}}' mode='scaleToFill' class='bgimage_bottom'></image>
+  <image src='{{backgroundUrl}}' mode='scaleToFill' class='bgimage' style='-webkit-filter: blur({{filter}}px);'></image>
+  <swiper class='swiper' autoplay="false" duration="500" interval="1000000000" current="1" bindchange='eventchange'>
+    <swiper-item>
+      <scroll-view scroll-y class='scrollview'>
 
-  <scroll-view scroll-y class='scrollview'>
-
-    <view class="page__hd" data-id='{{topEvent.id}}' bindtap='editDay'>
-      <view class="page__title">{{topEvent.event}} {{topEvent.eventTip}}</view>
-      <view class="page__days">{{topEvent.days}}
-        <view class='page_days_label'>{{topEvent.label}}</view>
-      </view>
-      <view class="page__desc">{{topEvent.showDate}}</view>
-    </view>
-    <block wx:for="{{events}}">
-      <view class="day_item" data-id='{{item.id}}' bindtap='editDay'>
-        <view class="day_left">
-          <view class='day_event'>
-            <text style='font-weight:bold;'>{{item.event}}</text> {{item.eventTip}}</view>
-          <view class='day_date'>{{item.showDate}} {{item.week}}</view>
+        <view class="page__hd" data-id='{{topEvent.id}}'>
+          <view class="page__title">{{topEvent.event}} {{topEvent.eventTip}}</view>
+          <view class="page__days">{{topEvent.days}}
+            <view class='page_days_label'>{{topEvent.label}}</view>
+          </view>
+          <view class="page__desc">{{topEvent.showDate}}</view>
         </view>
-        <view class="day_right">
-          <view class='day_days'>{{item.days}}</view>
-          <view class='day_label'>{{item.label}}</view>
+        <block wx:for="{{events}}">
+          <view class="day_item" data-id='{{item.id}}'>
+            <view class="day_left">
+              <view class='day_event'>
+                <text style='font-weight:bold;'>{{item.event}}</text> {{item.eventTip}}</view>
+              <view class='day_date'>{{item.showDate}} {{item.week}}</view>
+            </view>
+            <view class="day_right">
+              <view class='day_days'>{{item.days}}</view>
+              <view class='day_label'>{{item.label}}</view>
+            </view>
+          </view>
+        </block>
+      </scroll-view>
+      <view class='style_bottom'>
+        <view class='style_imgopt'>
+          <view class='style_add' bindtap='doUpload'>
+            <view class='style_add_bg'></view>
+          </view>
+          <view class='style_imgs'>
+            <scroll-view class='sv_imgs' scroll-x>
+              <block wx:for="{{styles}}">
+                <image class="sv_imgs_item {{item.url == backgroundUrl?'sv_imgs_item_current':''}}" data-url='{{item.url}}' src='{{item.url}}' mode='scaleToFill' bindtap='changeBg'></image>
+              </block>
+            </scroll-view>
+          </view>
+
+        </view>
+        <view class="page__bd page__bd_spacing"> 
+          <slider show-value value="{{filter*10}}" max='100' bindchange="filterChange"  />
         </view>
       </view>
-    </block>
-  </scroll-view>
+    </swiper-item>
+    <swiper-item>
+      <view class='page_bottom'>
+        <view class="addday" bindtap='addday'></view>
+      </view>
+      <scroll-view scroll-y class='scrollview'>
 
+        <view class="page__hd" data-id='{{topEvent.id}}' bindtap='editDay'>
+          <view class="page__title">{{topEvent.event}} {{topEvent.eventTip}}</view>
+          <view class="page__days">{{topEvent.days}}
+            <view class='page_days_label'>{{topEvent.label}}</view>
+          </view>
+          <view class="page__desc">{{topEvent.showDate}}</view>
+        </view>
+        <block wx:for="{{events}}">
+          <view class="day_item" data-id='{{item.id}}' bindtap='editDay'>
+            <view class="day_left">
+              <view class='day_event'>
+                <text style='font-weight:bold;'>{{item.event}}</text> {{item.eventTip}}</view>
+              <view class='day_date'>{{item.showDate}} {{item.week}}</view>
+            </view>
+            <view class="day_right">
+              <view class='day_days'>{{item.days}}</view>
+              <view class='day_label'>{{item.label}}</view>
+            </view>
+          </view>
+        </block>
+      </scroll-view>
+    </swiper-item>
+    <!-- <swiper-item>
+      <view>fsdfsd</view>
+    </swiper-item> -->
+  </swiper>
 </view>

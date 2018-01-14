@@ -11,9 +11,7 @@
   position: fixed;
   height: 100%;
   width: 100%;
-  z-index: 1;
-  -webkit-filter: blur(1px);
-  filter: blur(1px);
+  z-index: 1;  
 }
 
 .scrollview {
@@ -106,13 +104,15 @@
   line-height: 89rpx;
   border-radius: 100rpx;
   display: inline-block;
-  border: 1px solid #fff;
+  border: 0px solid #fff;
   text-align: center;
+   background: url(http://qcloudtest-1255501801.cn-south.myqcloud.com/1515827360895-HyKjlVwVM.png) no-repeat center;
+  background-size: 100rpx 100rpx; 
 }
 
 .page_bottom {
   position: fixed;
-  bottom: 68rpx;
+  bottom: 18rpx;
   z-index: 5;
   text-align: center;
   width: 100%;
@@ -126,4 +126,67 @@
   font-weight: 100;
   background-color: red;
   padding: 2rpx;
+}
+.swiper {
+  height: 100%;
+  width: 100%;
+  z-index: 5;
+  position: fixed;
+  top: 0;
+}
+.style_bottom{
+  position: fixed;
+  bottom: 0;
+  height: 300rpx;
+  width: 100%;
+  background: rgba(21,21,21,0.7); 
+  z-index: 10; 
+}
+.style_imgopt{
+  width: 100%;
+  height: 170rpx;
+
+}
+.style_add{
+  position: absolute;
+  left: 0;
+  display: inline-block;
+  width: 130rpx;
+  height: 130rpx;
+  margin: 0 0rpx 20rpx 20rpx;  
+  background-color: #fff;
+  border-radius: 10px;
+}
+.style_add_bg{
+  width: 100%;
+  height: 100%;
+  background: url(http://qcloudtest-1255501801.cn-south.myqcloud.com/1515829674095-Hyf2K4P4z.png) no-repeat center;
+  background-size: 130rpx 130rpx;  
+  border-radius:10px;
+
+}
+.style_imgs{
+  width: 100%;
+  height: 130rpx;
+  margin: 20rpx 20rpx 20rpx 20rpx;  
+}
+.sv_imgs{
+  display: flex;
+  white-space: nowrap;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  padding-left: 150rpx;
+  padding-right:20rpx;
+}
+.sv_imgs_item{
+  display: inline-block;
+  margin: 0 20rpx 0rpx 0rpx;
+  width: 130rpx;
+  height: 130rpx;  
+  border-radius: 10px; 
+}
+.sv_imgs_item_current{ 
+  border:2px solid #fff;
+  box-sizing: border-box;
 }

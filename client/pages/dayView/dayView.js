@@ -1,10 +1,13 @@
 // pages/dayView.js
+var app = getApp();
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    backgroundUrl: '',
+    filter: 0,
     eventIndex:0,
     event: {},
     events: [],
@@ -36,7 +39,8 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-
+    var filter = app.getFilter();
+    this.setData({ backgroundUrl: app.getBgUrl(), filter: filter });
   },
 
   /**

@@ -8,14 +8,14 @@ module.exports = async ctx => {
     if (id == 0) {
       data = {
         wxuserid: ctx.state.$wxInfo.userinfo.openId,
-        updatetime: moment(Date.now()).format('YYYY-MM-DD 00:00:00'),
+        updatetime: moment(Date.now()).format('YYYY-MM-DD HH:mm:ss'),
         event: name,
         isactived: '1',
         eventdate: moment(eventdate).format('YYYY-MM-DD 00:00:00'),
         classifyid: classifyid,
         styleImage: '',
         istop: istop,
-        createtime: moment(Date.now()).format('YYYY-MM-DD 00:00:00'),
+        createtime: moment(Date.now()).format('YYYY-MM-DD HH:mm:ss'),
         calendartype: calendarType,
         repeattype: repeatType
       };
@@ -23,7 +23,7 @@ module.exports = async ctx => {
       data.id = temp[0];
     } else {
       data = {
-        updatetime: moment(Date.now()).format('YYYY-MM-DD 00:00:00'),
+        updatetime: moment(Date.now()).format('YYYY-MM-DD HH:mm:ss'),
         event: name,
         eventdate: moment(eventdate).format('YYYY-MM-DD 00:00:00'),
         classifyid: classifyid,

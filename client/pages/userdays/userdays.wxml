@@ -1,0 +1,25 @@
+<view class="page">
+  <!-- <view class="page__hd">
+    <view class="page__title">用户管理</view>
+    <view class="page__desc">用户信息预览</view>
+  </view> -->
+  <view class="page__bd">
+    <view class="weui-panel weui-panel_access">
+      <view class="weui-panel__hd">用户days管理</view>
+      <view class="weui-panel__bd">
+        <block wx:for="{{userdays}}" wx:for-item="item">
+          <view class="weui-media-box weui-media-box_text">
+            <view class="weui-media-box__title weui-media-box__title_in-text">{{item.event}}  {{item.showDate}}</view>
+            <view class="weui-media-box__desc">{{item.eventTip}}{{item.days}}{{item.label}}</view>
+          </view>
+        </block> 
+      </view>
+      <view class="weui-panel__ft">
+        <!-- <view class="weui-cell weui-cell_access weui-cell_link">
+                    <view class="weui-cell__bd">查看更多</view>
+                    <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+                </view> -->
+      </view>
+    </view>
+  </view>
+</view>

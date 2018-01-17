@@ -41,8 +41,8 @@
           </view>
 
         </view>
-        <view class="page__bd page__bd_spacing"> 
-          <slider show-value value="{{filter*10}}" max='100' bindchange="filterChange"  />
+        <view class="page__bd page__bd_spacing">
+          <slider show-value value="{{filter*10}}" max='100' bindchange="filterChange" />
         </view>
       </view>
     </swiper-item>
@@ -50,7 +50,16 @@
       <view class='page_bottom'>
         <view class="addday" bindtap='addday'></view>
       </view>
-      <scroll-view scroll-y class='scrollview'>
+      <view wx:if="{{events.length == 0}}" class="one_page__hd" data-id='{{topEvent.id}}'>
+        <navigator url='../addDay/addDay?id={{topEvent.id}}'>
+          <view class="one_page__title">{{topEvent.event}} {{topEvent.eventTip}}</view>
+          <view class="one_page__days">{{topEvent.days}}
+            <view class='one_page_days_label'>{{topEvent.label}}</view>
+          </view>
+          <view class="one_page__desc">{{topEvent.showDate}} {{topEvent.week}}</view>
+        </navigator>
+      </view>
+      <scroll-view wx:if="{{events.length >= 1}}" scroll-y class='scrollview'>
 
         <view class="page__hd" data-id='{{topEvent.id}}' bindtap='editDay'>
           <view class="page__title">{{topEvent.event}} {{topEvent.eventTip}}</view>

@@ -100,6 +100,9 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    //打印管理页命令
+    console.log(" wx.navigateTo({url: '../manager/manager'})")
+
     this.login();
     //加载类别 getclassify
     this.getClassifys();
@@ -322,4 +325,4 @@ Page({
     app.setFilter(filter);
     this.setData({filter:filter})
   }
-})
+}) 

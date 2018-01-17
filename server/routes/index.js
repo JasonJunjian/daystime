@@ -39,4 +39,6 @@ router.get('/delday', validationMiddleware, controllers.delday)
 router.get('/getcalendar', controllers.getcalendar)
 router.get('/getstyle', controllers.getstyle) 
 router.get('/addstyle', validationMiddleware, controllers.addstyle)
+router.get('/getusers', validationMiddleware, controllers.getusers) 
+router.get('/userdays', validationMiddleware, controllers.userdays) 
 module.exports = router
